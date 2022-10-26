@@ -22,7 +22,11 @@
 ;; Floor, Boston, MA 02110-1301, USA.
 
 (defconst sixcolors-directory (file-name-directory (or load-file-name buffer-file-name)))
+
+(defconst sixcolors-cat-size 3)
+
 (defconst sixcolors-rainbow-image (concat sixcolors-directory "img/rainbow.xpm"))
+(defconst sixcolors-outerspace-image (concat sixcolors-directory "img/outerspace.xpm"))
 
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
@@ -83,11 +87,20 @@ Minimum of 3 units are required for Nyan Cat."
                                                        (interactive)
                                                        (sixcolors-scroll-buffer percentage buffer))))))))
 
+(defun sixcolors-number-of-rainbows ()
+(round (/ (* (round (* 100
+                         (/ (- (float (point))
+                               (float (point-min)))
+                            (float (point-max)))))
+               sixcolors-bar-length)
+          100)))
+
+
 (defun sixcolors-create ()
 (interactive)
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
-    (let* ((rainbows 1)
+    (let* ((rainbows (sixcolors-number-of-rainbows))
            (outerspaces (- sixcolors-bar-length rainbows 6))
            (rainbow-string "")
            (xpm-support (image-type-available-p 'xpm))
@@ -100,18 +113,18 @@ Minimum of 3 units are required for Nyan Cat."
                                           (propertize "|"
                                                       'display (create-image sixcolors-rainbow-image 'xpm nil :ascent nil))
                                         "|")
-                                      (/ (float number) sixcolors-bar-length) buffer)))
-;;      (dotimes (number outerspaces)
-;;        (setq outerspace-string (concat outerspace-string
-;;                                        (sixcolors-add-scroll-handler
-;;                                         (if xpm-support
-;;                                             (propertize "-"
-;;                                                         'display (create-image sixcolors-outerspace-image 'xpm nil :ascent nil))
+                                      (/ (float number) sixcolors-bar-length) buffer))))
+      (dotimes (number outerspaces)
+        (setq outerspace-string (concat outerspace-string
+                                        (sixcolors-add-scroll-handler
+                                         (if xpm-support
+                                             (propertize "-"
+                                                         'display (create-image sixcolors-outerspace-image 'xpm nil :ascent nil))
                                            "-")
-;;                                         (/ (float (+ rainbows 6 number)) sixcolors-bar-length) buffer))))
-      (propertize rainbow-string
+                                         (/ (float (+ rainbows sixcolors-size number)) sixcolors-bar-length) buffer))))
+      (propertize (concat rainbow-string
                         ;;  sixcolors-string
-                        ;;  outerspace-string)
+                        outerspace-string)
                   'help-echo sixcolors-modeline-help-string))))
 
 
