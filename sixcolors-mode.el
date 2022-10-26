@@ -23,7 +23,7 @@
 
 (defconst sixcolors-directory (file-name-directory (or load-file-name buffer-file-name)))
 
-(defconst sixcolors-cat-size 3)
+(defconst sixcolors-size 3)
 
 (defconst sixcolors-rainbow-image (concat sixcolors-directory "img/rainbow.xpm"))
 (defconst sixcolors-outerspace-image (concat sixcolors-directory "img/outerspace.xpm"))
@@ -111,7 +111,7 @@ Minimum of 3 units are required for Nyan Cat."
                                      (sixcolors-add-scroll-handler
                                       (if xpm-support
                                           (propertize "|"
-                                                      'display (create-image sixcolors-rainbow-image 'xpm nil :ascent nil))
+                                                      'display (create-image sixcolors-rainbow-image 'xpm nil :ascent 'center))
                                         "|")
                                       (/ (float number) sixcolors-bar-length) buffer))))
       (dotimes (number outerspaces)
@@ -119,7 +119,7 @@ Minimum of 3 units are required for Nyan Cat."
                                         (sixcolors-add-scroll-handler
                                          (if xpm-support
                                              (propertize "-"
-                                                         'display (create-image sixcolors-outerspace-image 'xpm nil :ascent nil))
+                                                         'display (create-image sixcolors-outerspace-image 'xpm nil :ascent 'center))
                                            "-")
                                          (/ (float (+ rainbows sixcolors-size number)) sixcolors-bar-length) buffer))))
       (propertize (concat rainbow-string
