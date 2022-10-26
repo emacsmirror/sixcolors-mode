@@ -1,11 +1,11 @@
-;;; sixcolors-mode.el
-;;; based on ...
-;;; nyan-mode.el
-
+;; sixcolors-mode.el
+;; heavily based on 
+;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
+;;
 ;; Author: Davide Mastromatteo <mastro35@gmail.com>
 ;; Version: 1.0
 ;; Package-Requires: ((emacs "28.1"))
-
+;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
 ;; published by the Free Software Foundation; either version 3, or
@@ -22,12 +22,9 @@
 ;; Floor, Boston, MA 02110-1301, USA.
 
 (defconst sixcolors-directory (file-name-directory (or load-file-name buffer-file-name)))
-
 (defconst sixcolors-size 3)
-
 (defconst sixcolors-rainbow-image (concat sixcolors-directory "img/rainbow.xpm"))
 (defconst sixcolors-outerspace-image (concat sixcolors-directory "img/outerspace.xpm"))
-
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
 (defvar sixcolors-old-car-mode-line-position nil)
@@ -47,7 +44,7 @@ reapply them immediately."
       (sixcolors-mode 1))))
 
 (defcustom sixcolors-minimum-window-width 64
-  "Minimum width of the window, below which nyan-mode will not be displayed.
+  "Minimum width of the window, below which sixcolors-mode will not be displayed.
 This is important because sixcolors-mode will push out all
 informations from small windows."
   :type 'integer
@@ -59,7 +56,7 @@ informations from small windows."
 (defcustom sixcolors-bar-length 32
   "Length of sixcolors bar in units.
 Each unit is equal to an 8px image.
-Minimum of 3 units are required for Nyan Cat."
+Minimum of 3 units are required for sixcolors-mode."
   :type 'integer
   :set (lambda (sym val)
          (set-default sym val)
@@ -101,7 +98,7 @@ Minimum of 3 units are required for Nyan Cat."
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
     (let* ((rainbows (sixcolors-number-of-rainbows))
-           (outerspaces (- sixcolors-bar-length rainbows 6))
+           (outerspaces (- sixcolors-bar-length rainbows))
            (rainbow-string "")
            (xpm-support (image-type-available-p 'xpm))
            (outerspace-string "")
@@ -134,9 +131,9 @@ Minimum of 3 units are required for Nyan Cat."
 
 Note: If you turn this mode on then you probably want to turn off
 option `scroll-bar-mode'."
+
   :global t
   :group 'sixcolors
-  ;; FIXME: That doesn't smell right; might still get duplicate nyan cats and other mode-line disruptions.  -- Jacek Złydach, 2020-05-26
   (cond (sixcolors-mode
          (unless sixcolors-old-car-mode-line-position
            (setq sixcolors-old-car-mode-line-position (car mode-line-position)))
