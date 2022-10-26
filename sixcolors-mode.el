@@ -53,7 +53,7 @@ informations from small windows."
          (sixcolors-refresh))
   :group 'sixcolors)
 
-(defcustom sixcolors-bar-length 32
+(defcustom sixcolors-bar-length 35
   "Length of sixcolors bar in units.
 Each unit is equal to an 8px image.
 Minimum of 3 units are required for sixcolors-mode."
@@ -85,12 +85,12 @@ Minimum of 3 units are required for sixcolors-mode."
                                                        (sixcolors-scroll-buffer percentage buffer))))))))
 
 (defun sixcolors-number-of-rainbows ()
-(round (/ (* (round (* 100
+(+ 1 (round (/ (* (round (* 100
                          (/ (- (float (point))
                                (float (point-min)))
                             (float (point-max)))))
                sixcolors-bar-length)
-          100)))
+          100))))
 
 
 (defun sixcolors-create ()
@@ -98,7 +98,7 @@ Minimum of 3 units are required for sixcolors-mode."
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
     (let* ((rainbows (sixcolors-number-of-rainbows))
-           (outerspaces (- sixcolors-bar-length rainbows))
+           (outerspaces (- sixcolors-bar-length rainbows -2))
            (rainbow-string "")
            (xpm-support (image-type-available-p 'xpm))
            (outerspace-string "")
