@@ -2,7 +2,7 @@
 
 This software is a homage to the old six colors Apple logo and to what that culture has meant for the community.
 
-It draws a rainbow on the modeline according to the position of the point, so to have a horizontal scrollbar that shows you where the point is relative to the size of the current buffer.
+It draws a rainbow on the modeline according to the position of the point, so to have a horizontal scrollbar that shows you where the point is relatively to the size of the current buffer.
 
 It's basically a fork of [TeMPOraL Nyan-mode](https://github.com/TeMPOraL/nyan-mode) but without the cat, the animations and the music. 
 The rainbow is based on the colors of the six colors rainbow logo that Apple used between 1977 and 1998.
