@@ -1,6 +1,8 @@
 ;; sixcolors-mode.el
-;; heavily based on 
+;; *heavily based* on 
 ;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
+;; 
+;; ... I mean, this is basically Jacek's code with small modifications 
 ;;
 ;; Author: Davide Mastromatteo <mastro35@gmail.com>
 ;; Version: 1.0
@@ -85,6 +87,7 @@ Minimum of 3 units are required for sixcolors-mode."
                                                        (sixcolors-scroll-buffer percentage buffer))))))))
 
 (defun sixcolors-number-of-rainbows ()
+ "Number of rainbows to print on screen based on the point position"
 (+ 1 (round (/ (* (round (* 100
                          (/ (- (float (point))
                                (float (point-min)))
@@ -94,7 +97,7 @@ Minimum of 3 units are required for sixcolors-mode."
 
 
 (defun sixcolors-create ()
-(interactive)
+ "Main function that creates the bar"
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
     (let* ((rainbows (sixcolors-number-of-rainbows))
