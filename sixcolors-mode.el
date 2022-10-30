@@ -1,12 +1,17 @@
-;; sixcolors-mode.el
-;; *heavily based* on 
+;;; sixcolors-mode.el --- A horizontal colored scrollbar
+
+;; *heavily based* on
 ;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
 ;; 
-;; ... I mean, this is basically Jacek's code with small modifications 
-;;
+;; ... I mean, this is basically Jacek's code with small modifications
+
+;;; Commentary:
 ;; Author: Davide Mastromatteo <mastro35@gmail.com>
+;; URL: https://github.com/mastro35/sixcolors-mode
+;; Keywords: convenience, colors
 ;; Version: 1.0
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((Emacs "27.1"))
+
 ;;
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -23,10 +28,15 @@
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 ;; Floor, Boston, MA 02110-1301, USA.
 
-(defconst sixcolors-directory (file-name-directory (or load-file-name buffer-file-name)))
+;;; Code:
+
+(defconst sixcolors-directory (file-name-directory
+                               (or load-file-name buffer-file-name)))
 (defconst sixcolors-size 3)
-(defconst sixcolors-rainbow-image (concat sixcolors-directory "img/rainbow.xpm"))
-(defconst sixcolors-outerspace-image (concat sixcolors-directory "img/outerspace.xpm"))
+(defconst sixcolors-rainbow-image (concat sixcolors-directory
+                                          "img/rainbow.xpm"))
+(defconst sixcolors-outerspace-image (concat sixcolors-directory
+                                             "img/outerspace.xpm"))
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
 (defvar sixcolors-old-car-mode-line-position nil)
@@ -46,8 +56,8 @@ reapply them immediately."
       (sixcolors-mode 1))))
 
 (defcustom sixcolors-minimum-window-width 64
-  "Minimum width of the window, below which sixcolors-mode will not be displayed.
-This is important because sixcolors-mode will push out all
+  "Minimum width of the window, below which the bar will not be displayed.
+This is important because `sixcolors-mode' will push out all
 informations from small windows."
   :type 'integer
   :set (lambda (sym val)
@@ -58,7 +68,7 @@ informations from small windows."
 (defcustom sixcolors-bar-length 35
   "Length of sixcolors bar in units.
 Each unit is equal to an 8px image.
-Minimum of 3 units are required for sixcolors-mode."
+Minimum of 3 units are required for `sixcolors-mode'."
   :type 'integer
   :set (lambda (sym val)
          (set-default sym val)
@@ -81,23 +91,26 @@ Minimum of 3 units are required for sixcolors-mode."
         (buffer buffer))
     (propertize string
                 'keymap
-                `(keymap (mode-line keymap
-                                    (down-mouse-1 . ,(lambda ()
-                                                       (interactive)
-                                                       (sixcolors-scroll-buffer percentage buffer))))))))
+                `(keymap (mode-line
+                          keymap
+                          (down-mouse-1 . ,(lambda ()
+                                             (interactive)
+                                             (sixcolors-scroll-buffer
+                                              percentage
+                                              buffer))))))))
 
 (defun sixcolors-number-of-rainbows ()
- "Number of rainbows to print on screen based on the point position"
-(+ 1 (round (/ (* (round (* 100
-                         (/ (- (float (point))
-                               (float (point-min)))
-                            (float (point-max)))))
-               sixcolors-bar-length)
-          100))))
+  "Number of rainbows to print on screen based on the point position."
+  (+ 1 (round (/ (* (round (* 100
+                              (/ (- (float (point))
+                                    (float (point-min)))
+                                 (float (point-max)))))
+                    sixcolors-bar-length)
+                 100))))
 
 
 (defun sixcolors-create ()
- "Main function that creates the bar"
+  "Main function that create the bar."
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
     (let* ((rainbows (sixcolors-number-of-rainbows))
@@ -107,24 +120,35 @@ Minimum of 3 units are required for sixcolors-mode."
            (outerspace-string "")
            (buffer (current-buffer)))
       (dotimes (number rainbows)
-        (setq rainbow-string (concat rainbow-string
-                                     (sixcolors-add-scroll-handler
-                                      (if xpm-support
-                                          (propertize "|"
-                                                      'display (create-image sixcolors-rainbow-image 'xpm nil :ascent 'center))
-                                        "|")
-                                      (/ (float number) sixcolors-bar-length) buffer))))
+        (setq rainbow-string
+              (concat rainbow-string
+                      (sixcolors-add-scroll-handler
+                       (if xpm-support
+                           (propertize
+                            "|"
+                            'display
+                            (create-image
+                             sixcolors-rainbow-image 'xpm nil :ascent
+                             'center))
+                         "|")
+                       (/ (float number) sixcolors-bar-length) buffer))))
       (dotimes (number outerspaces)
-        (setq outerspace-string (concat outerspace-string
-                                        (sixcolors-add-scroll-handler
-                                         (if xpm-support
-                                             (propertize "-"
-                                                         'display (create-image sixcolors-outerspace-image 'xpm nil :ascent 'center))
-                                           "-")
-                                         (/ (float (+ rainbows sixcolors-size number)) sixcolors-bar-length) buffer))))
+        (setq outerspace-string
+              (concat outerspace-string
+                      (sixcolors-add-scroll-handler
+                       (if xpm-support
+                           (propertize
+                            "-"
+                            'display
+                            (create-image
+                             sixcolors-outerspace-image 'xpm nil :ascent
+                             'center))
+                         "-")
+                       (/ (float (+ rainbows sixcolors-size number))
+                          sixcolors-bar-length) buffer))))
       (propertize (concat rainbow-string
-                        ;;  sixcolors-string
-                        outerspace-string)
+                          ;;  sixcolors-string
+                          outerspace-string)
                   'help-echo sixcolors-modeline-help-string))))
 
 
@@ -148,3 +172,7 @@ option `scroll-bar-mode'."
 
 (provide 'sixcolors-mode)
 
+
+(provide 'sixcolors-mode)
+
+;;; sixcolors-mode.el ends here
