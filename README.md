@@ -10,6 +10,8 @@ The rainbow is based on the colors of the six colors rainbow logo that Apple use
 > Apple was 90 days away from going bankrupt back then. Was much worse than I thought when I went back. I actually asked people, ‘Why are you still here?’. And the answer was, ‘Because I bleed in 6 colors.’
 > -Steve Jobs, on his return to Apple
 
+![screenshot](./sixcolors-mode.png)
+
 In the next days I will try to release it on MELPA and it will be part of the standard distribution of Six Colors Emacs, a new configuration framework for Emacs I am currently working on and that will be based on a vintage look and curated configuration.
 
 This package is free software, but if you like it, feel free to [buy me a coffee](https://www.buymeacoffee.com/dXjDHmt)! ;)
