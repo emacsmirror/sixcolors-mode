@@ -10,7 +10,7 @@
 ;; URL: https://github.com/mastro35/sixcolors-mode
 ;; Keywords: convenience, colors
 ;; Version: 1.0
-;; Package-Requires: ((Emacs "27.1"))
+;; Package-Requires: ((emacs "27.1"))
 
 ;;
 ;; This program is free software; you can redistribute it and/or
