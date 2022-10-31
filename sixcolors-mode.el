@@ -169,10 +169,6 @@ option `scroll-bar-mode'."
          (setcar mode-line-position sixcolors-old-car-mode-line-position)
          (setq sixcolors-old-car-mode-line-position nil))))
 
-
-(provide 'sixcolors-mode)
-
-
 (provide 'sixcolors-mode)
 
 ;;; sixcolors-mode.el ends here
