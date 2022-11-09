@@ -62,22 +62,6 @@ static char * outerspace[] = {
 \"00000000\"};"
 )
 
-;; Apple Style
-;;(defvar sixcolors-colors '("#61BB46" "#FDB827" "#F5821F" "#E03A3E" "#963D97" "#009DDC"))
-
-;; Spectrum Style
-;; (defvar sixcolors-colors '("#FF0002" "#FDFF00" "#00FF03" "#01FFFE"))
-
-;; Italy Stile
-;; (defvar sixcolors-colors '("#009246" "#009246" "#FFFFFF" "#FFFFFF" "#CE2B37" "#CE2B37"))
-
-;; U.S.A. Style
-;; (defvar sixcolors-colors '("#002868" "#002868" "#FFFFFF" "#BF0A30" "#FFFFFF" "#BF0A30"))
-
-;; Commodore Stile
-;; (defvar sixcolors-colors '("#D12625" "#DA6241" "#F1CB29" "#4BB249" "#009EDA"))
-
-
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
 (defvar sixcolors-old-car-mode-line-position nil)
