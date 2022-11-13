@@ -3,7 +3,7 @@
 ;; *heavily based* on
 ;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
 ;; 
-;; ... I mean, this is basically Jacek's code with small modifications: 
+;; ... I mean, this is basically Jacek's code with small modifications:
 ;; - no more cat
 ;; - no more animations
 ;; - no more music
@@ -37,7 +37,7 @@
 
 (defconst sixcolors-directory (file-name-directory (or load-file-name buffer-file-name)))
 (defconst sixcolors-size 3)
-(defconst sixcolors-outerspace-image-data 
+(defconst sixcolors-outerspace-image-data
 "/* XPM */
 static char * outerspace[] = {
 \"8 18 1 1\"
@@ -59,8 +59,7 @@ static char * outerspace[] = {
 \"00000000\",
 \"00000000\",
 \"00000000\",
-\"00000000\"};"
-)
+\"00000000\"};")
 
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
@@ -70,44 +69,35 @@ static char * outerspace[] = {
   "Customization group for `sixcolors-mode'."
   :group 'frames)
 
-(defun get-rainbow-image-data-with-colors(colors)
-  "Return the rainbow image in XPM format"
+(defun sixcolors-get-rainbow-image-data-with-colors(colors)
+  "Return the rainbow image made by COLORS in XPM format."
 
   (unless (> (length colors) 6)
 
     ;; create the header
-    (setq rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\"\n" 
-                                     (* 3 (length colors)) 
+    (setq rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\"\n"
+                                     (* 3 (length colors))
                                      (length colors)))
     
     ;; create the color legends
     (dotimes (i (length colors))
-      (setq rainbow-image-data (concat  
+      (setq rainbow-image-data (concat
                                 rainbow-image-data
-                                (format "\"%s c %s\",\n" i (nth i colors))
-                                )
-            )
-      )
+                                (format "\"%s c %s\",\n" i (nth i colors)))))
     
     ;; create the stripes
     (dotimes (i (length colors))
-      (dotimes (k 3)      
-        (setq rainbow-image-data (concat  
+      (dotimes (k 3)
+        (setq rainbow-image-data (concat
                                   rainbow-image-data
-                                  (format "\"%s%s%s%s%s%s%s%s\"" i i i i i i i i)
-                                  ))
-        (unless (and 
+                                  (format "\"%s%s%s%s%s%s%s%s\"" i i i i i i i i)))
+        (unless (and
                  (= i (- (length colors) 1))
                  (= k 2))
-          (setq rainbow-image-data (concat rainbow-image-data ",\n"))
-          )
-        )
-      )
+          (setq rainbow-image-data (concat rainbow-image-data ",\n")))))
     
     ;; return the final string
-    (format "%s};" rainbow-image-data)
-    )
-  )
+    (format "%s};" rainbow-image-data)))
 
 (defun sixcolors-refresh ()
   "Refresh sixcolors mode.
@@ -171,6 +161,7 @@ For transparent color use 'None'."
                                                        (sixcolors-scroll-buffer percentage buffer))))))))
 
 (defun sixcolors-number-of-rainbows ()
+  "Define how many rainbows images have to be displayed."
 (+ 1 (round (/ (* (round (* 100
                          (/ (- (float (point))
                                (float (point-min)))
@@ -180,7 +171,7 @@ For transparent color use 'None'."
 
 
 (defun sixcolors-create ()
-(interactive)
+  "Create the sixcolors bar in the modeline."
   (if (< (window-width) sixcolors-minimum-window-width)
       ""                                ; disabled for too small windows
     (let* ((rainbows (sixcolors-number-of-rainbows))
@@ -194,7 +185,7 @@ For transparent color use 'None'."
                                      (sixcolors-add-scroll-handler
                                       (if xpm-support
                                           (propertize "|"
-                                                      'display (create-image (get-rainbow-image-data-with-colors sixcolors-colors) 
+                                                      'display (create-image (sixcolors-get-rainbow-image-data-with-colors sixcolors-colors)
                                                                              'xpm t :ascent 'center))
                                         "|")
                                       (/ (float number) sixcolors-bar-length) buffer))))
