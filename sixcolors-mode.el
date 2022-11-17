@@ -1,4 +1,4 @@
-;;; sixcolors-mode.el --- A horizontal colored scrollbar
+;;; sixcolors-mode.el --- A customizable horizontal scrollbar for Emacs
 
 ;; *heavily based* on
 ;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
@@ -110,8 +110,8 @@ reapply them immediately."
       (sixcolors-mode 1))))
 
 (defcustom sixcolors-minimum-window-width 64
-  "Minimum width of the window, below which sixcolors-mode will not be displayed.
-This is important because sixcolors-mode will push out all
+  "Minimum width of the window, below which 'sixcolors-mode' will not be displayed.
+This is important because 'sixcolors-mode' will push out all
 informations from small windows."
   :type 'integer
   :set (lambda (sym val)
@@ -122,7 +122,7 @@ informations from small windows."
 (defcustom sixcolors-bar-length 35
   "Length of sixcolors bar in units.
 Each unit is equal to an 8px image.
-Minimum of 3 units are required for sixcolors-mode."
+Minimum of 3 units are required for 'sixcolors-mode'."
   :type 'integer
   :set (lambda (sym val)
          (set-default sym val)
