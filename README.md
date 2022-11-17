@@ -1,4 +1,4 @@
-# Six Colors Mode - for Emacs users that bleed in six colors
+# Six Colors Mode - for Emacs users that bleed in six colors 🦄
 
 This software is a homage to the old six colors Apple logo and to what that culture has meant for the community.
 
