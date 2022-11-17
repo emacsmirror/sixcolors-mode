@@ -40,7 +40,7 @@
 (defconst sixcolors-outerspace-image-data
 "/* XPM */
 static char * outerspace[] = {
-\"8 18 1 1\"
+\"8 18 1 1\",
 \"0 c None\",
 \"00000000\",
 \"00000000\",
@@ -75,7 +75,7 @@ static char * outerspace[] = {
   (unless (> (length colors) 6)
 
     ;; create the header
-    (setq rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\"\n"
+    (setq rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\",\n"
                                      (* 3 (length colors))
                                      (length colors)))
     
