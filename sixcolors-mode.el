@@ -1,4 +1,12 @@
-;;; sixcolors-mode.el --- A customizable horizontal scrollbar for Emacs
+;;; sixcolors-mode.el --- A customizable horizontal scrollbar
+
+;; Author: Davide Mastromatteo <mastro35@gmail.com>
+;; URL: https://github.com/mastro35/sixcolors-mode
+;; Keywords: convenience, colors
+;; Version: 1.0
+;; Package-Requires: ((emacs "27.1"))
+
+;;; Commentary:
 
 ;; *heavily based* on
 ;; nyan-mode.el by Jacek "TeMPOraL" Zlydach <temporal.pl@gmail.com>
@@ -9,29 +17,6 @@
 ;; - no more music
 ;; - no more static XPM images for the rainbow and the outerspace
 ;; - the rainbow is now customizable using up to six custom colors
-
-;;; Commentary:
-;; Author: Davide Mastromatteo <mastro35@gmail.com>
-;; URL: https://github.com/mastro35/sixcolors-mode
-;; Keywords: convenience, colors
-;; Version: 1.0
-;; Package-Requires: ((emacs "27.1"))
-
-;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
 
 ;;; Code:
 
@@ -71,33 +56,32 @@ static char * outerspace[] = {
 
 (defun sixcolors-get-rainbow-image-data-with-colors(colors)
   "Return the rainbow image made by COLORS in XPM format."
-
+  
   (unless (> (length colors) 6)
-
     ;; create the header
-    (setq rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\",\n"
-                                     (* 3 (length colors))
-                                     (length colors)))
-    
-    ;; create the color legends
-    (dotimes (i (length colors))
-      (setq rainbow-image-data (concat
-                                rainbow-image-data
-                                (format "\"%s c %s\",\n" i (nth i colors)))))
-    
-    ;; create the stripes
-    (dotimes (i (length colors))
-      (dotimes (k 3)
-        (setq rainbow-image-data (concat
-                                  rainbow-image-data
-                                  (format "\"%s%s%s%s%s%s%s%s\"" i i i i i i i i)))
-        (unless (and
-                 (= i (- (length colors) 1))
+    (let* ((rainbow-image-data (format "/* XPM */\nstatic char * rainbow[] = {\n\"8 %s %s 1\",\n"
+                                       (* 3 (length colors))
+                                       (length colors))))
+      
+       ;; create the color legends
+       (dotimes (i (length colors))
+         (setq rainbow-image-data (concat
+                                   rainbow-image-data
+                                   (format "\"%s c %s\",\n" i (nth i colors)))))
+       
+       ;; create the stripes
+       (dotimes (i (length colors))
+         (dotimes (k 3)
+           (setq rainbow-image-data (concat
+                                     rainbow-image-data
+                                     (format "\"%s%s%s%s%s%s%s%s\"" i i i i i i i i)))
+           (unless (and
+                    (= i (- (length colors) 1))
                  (= k 2))
-          (setq rainbow-image-data (concat rainbow-image-data ",\n")))))
-    
-    ;; return the final string
-    (format "%s};" rainbow-image-data)))
+             (setq rainbow-image-data (concat rainbow-image-data ",\n")))))
+       
+       ;; return the final string
+       (format "%s};" rainbow-image-data))))
 
 (defun sixcolors-refresh ()
   "Refresh sixcolors mode.
