@@ -49,6 +49,7 @@ static char * outerspace[] = {
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
 (defvar sixcolors-old-car-mode-line-position nil)
+(defvar-local sixcolors--rendered (sixcolors-get-rainbow-image-data-with-colors sixcolors-colors))
 
 (defgroup sixcolors nil
   "Customization group for `sixcolors-mode'."
@@ -169,7 +170,7 @@ For transparent color use 'None'."
                                      (sixcolors-add-scroll-handler
                                       (if xpm-support
                                           (propertize "|"
-                                                      'display (create-image (sixcolors-get-rainbow-image-data-with-colors sixcolors-colors)
+                                                      'display (create-image sixcolors--rendered
                                                                              'xpm t :ascent 'center))
                                         "|")
                                       (/ (float number) sixcolors-bar-length) buffer))))
