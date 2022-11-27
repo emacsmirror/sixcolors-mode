@@ -49,9 +49,6 @@ static char * outerspace[] = {
 
 (defconst sixcolors-modeline-help-string "nmouse-1: Scroll buffer position")
 
-(defvar sixcolors-old-car-mode-line-position nil)
-(defvar-local sixcolors--rendered (sixcolors-get-rainbow-image-data-with-colors sixcolors-colors))
-
 (defgroup sixcolors nil
   "Customization group for `sixcolors-mode'."
   :group 'frames)
@@ -124,6 +121,9 @@ For transparent color use 'None'."
          (set-default sym val)
          (sixcolors-refresh))
   :group 'sixcolors)
+
+(defvar sixcolors-old-car-mode-line-position nil)
+(defvar-local sixcolors--rendered (sixcolors-get-rainbow-image-data-with-colors sixcolors-colors))
 
 ;;; Load the rainbow.
 
