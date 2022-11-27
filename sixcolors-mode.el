@@ -5,6 +5,7 @@
 ;; Keywords: convenience, colors
 ;; Version: 1.0
 ;; Package-Requires: ((emacs "27.1"))
+;; SPDX-License-Identifier: GPL-3.0-only
 
 ;;; Commentary:
 
