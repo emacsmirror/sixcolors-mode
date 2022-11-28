@@ -39,13 +39,12 @@ This project is available on [MELPA](https://melpa.org/) [![MELPA](https://melpa
 ```
 (use-package sixcolors-mode)
 (sixcolors-mode)
-
 ```
 
 If you want to customize the colors of your bar just set the single colors (up to six) as a list assigned to the `sixcolors-colors` variable.
 For example:
 
 ```
-(setq sixcolors-colors '("#009246" "#009246" "#FFFFFF" "#FFFFFF" "#CE2b37" "#CE2B37"))`
+(setq sixcolors-colors '("#009246" "#009246" "#FFFFFF" "#FFFFFF" "#CE2b37" "#CE2B37"))
 ```
 
