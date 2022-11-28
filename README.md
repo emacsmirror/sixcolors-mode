@@ -31,8 +31,21 @@ and if you are a nostalgic spectrum user:
 
 ![spectrum](./spectrum.png)
 
----
 
-In the next days I will try to release it on MELPA and it will be part of the standard distribution of Six Colors Emacs, a new configuration framework for Emacs I am currently working on and that will be based on a vintage look and curated configuration.
+## Installation
 
----
+This project is available on [MELPA](https://melpa.org/) [![MELPA](https://melpa.org/packages/sixcolors-mode-badge.svg)](https://melpa.org/#/sixcolors-mode) and can be installed using the Emacs package manager.
+
+```
+(use-package sixcolors-mode)
+(sixcolors-mode)
+
+```
+
+If you want to customize the colors of your bar just set the single colors (up to six) as a list assigned to the `sixcolors-colors` variable.
+For example:
+
+```
+(setq sixcolors-colors '("#009246" "#009246" "#FFFFFF" "#FFFFFF" "#CE2b37" "#CE2B37"))`
+```
+
