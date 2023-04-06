@@ -135,6 +135,7 @@ For transparent color use 'None'."
   (with-current-buffer buffer
     (goto-char (floor (* percentage (point-max))))))
 
+
 (defun sixcolors-add-scroll-handler (string percentage buffer)
   "Propertize `STRING' to scroll `BUFFER' to `PERCENTAGE' on click."
   (let ((percentage percentage)
@@ -142,18 +143,18 @@ For transparent color use 'None'."
     (propertize string
                 'keymap
                 `(keymap (mode-line keymap
-                                    (down-mouse-1 . ,(lambda ()
-                                                       (interactive)
-                                                       (sixcolors-scroll-buffer percentage buffer))))))))
+                                    (down-mouse-1 . ,`(lambda ()
+                                                        (interactive)
+                                                        (sixcolors-scroll-buffer ,percentage ,buffer))))))))
 
 (defun sixcolors-number-of-rainbows ()
   "Define how many rainbows images have to be displayed."
-(+ 1 (round (/ (* (round (* 100
-                         (/ (- (float (point))
-                               (float (point-min)))
-                            (float (point-max)))))
-               sixcolors-bar-length)
-          100))))
+  (+ 1 (round (/ (* (round (* 100
+                              (/ (- (float (point))
+                                    (float (point-min)))
+                                 (float (point-max)))))
+                    sixcolors-bar-length)
+                 100))))
 
 
 (defun sixcolors-create ()
